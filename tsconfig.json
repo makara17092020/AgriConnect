@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    /* ===== File Layout ===== */
+    "rootDir": "./src", // Source files
+    "outDir": "./dist", // Compiled output files
+
+    /* ===== Environment Settings ===== */
+    "module": "commonjs", // Use CommonJS for Node.js
+    "target": "ES2020", // Modern JS features supported
+    "lib": ["ES2020"], // Include standard library
+    "types": ["node", "express"], // Include Node.js type definitions
+    "typeRoots": ["./src/types", "./node_modules/@types"], // Custom and installed types
+
+    /* ===== Other Outputs ===== */
+    "sourceMap": true, // Generate .map files for debugging
+    "declaration": true, // Generate .d.ts type files
+    "declarationMap": true, // Map declaration files to source
+
+    /* ===== Stricter Typechecking ===== */
+    "strict": true, // Enable all strict checks
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* ===== Style Options ===== */
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+
+    /* ===== Recommended ===== */
+    "esModuleInterop": true, // Allow import express from "express"
+    "moduleResolution": "node", // Resolve Node-style modules
+    "skipLibCheck": true, // Skip library type checking
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true
+  },
+  "include": ["src"], // Compile everything in src/
+  "exclude": ["node_modules", "dist"] // Ignore these folders
+}
