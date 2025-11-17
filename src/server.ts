@@ -8,16 +8,14 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
-    await connectDB();
+    await connectDB(); // connects to MongoDB
 
     app.listen(PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${PORT}`);
-      console.log(
-        `📚 Swagger Docs available at http://localhost:${PORT}/api-docs`
-      );
+      console.log(`Server running at http://localhost:${PORT}`);
+      console.log(`Swagger Docs: http://localhost:${PORT}/api-docs`);
     });
   } catch (error) {
-    console.error("❌ Failed to start server:", error);
+    console.error("Failed to start server:", error);
     process.exit(1);
   }
 };

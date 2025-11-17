@@ -6,7 +6,7 @@ export interface IAdmin extends Document {
   name: string;
   email: string;
   password: string;
-  role: string; // always "Admin"
+  role: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -21,7 +21,7 @@ const AdminSchema: Schema<IAdmin> = new Schema<IAdmin>(
   { timestamps: true }
 );
 
-// Optional: hash password before saving (if you want auto-hash)
+// Hash password automatically before saving
 AdminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
