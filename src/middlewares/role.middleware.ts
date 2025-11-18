@@ -1,7 +1,7 @@
 import { Response, NextFunction } from "express";
 import { AuthenticatedRequest } from "./auth.middleware";
 
-export const authorizeRoles = (...roles: string[]) => {
+export const authorizeRoles = (...allowedRoles: string[]) => {
   return (
     req: AuthenticatedRequest,
     res: Response,
@@ -9,13 +9,15 @@ export const authorizeRoles = (...roles: string[]) => {
   ): void => {
     const user = req.user;
 
-    if (!user) {
+    if (!user || !user.roles) {
       res.status(401).json({ message: "Unauthorized" });
       return;
     }
 
-    // Check user.role (string) against allowed roles
-    if (!roles.includes(user.role || "")) {
+    // user.roles is an array, check intersection
+    const hasRole = user.roles.some((role) => allowedRoles.includes(role));
+
+    if (!hasRole) {
       res.status(403).json({ message: "Forbidden: Insufficient role" });
       return;
     }

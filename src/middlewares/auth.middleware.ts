@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 interface AuthUser extends JwtPayload {
   id: string;
   email?: string;
-  role?: string;
+  roles?: string[]; // multiple roles
 }
 
 // Extend Request

@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Admin from "../models/admin.model";
+import User from "../models/user.model";
+import Role from "../models/role.model";
+import UserRole from "../models/userRole.model";
 
 dotenv.config();
 
@@ -12,25 +14,37 @@ const seedAdmin = async () => {
     const adminEmail = process.env.ADMIN_EMAIL || "admin@agri.com";
     const adminPassword = process.env.ADMIN_PASSWORD || "password123";
 
-    const existing = await Admin.findOne({ email: adminEmail });
-    if (!existing) {
-      await Admin.create({
+    // Check if admin already exists
+    let adminUser = await User.findOne({ email: adminEmail });
+    // Create admin user if not exists
+    if (!adminUser) {
+      adminUser = await User.create({
         name: "Admin",
         email: adminEmail,
-        password: adminPassword, // plain password, pre-save hook hashes it
+        password: adminPassword, // ✔️ let pre-save hash it
         role: "Admin",
       });
+      console.log("Admin user created:", adminEmail);
+    }
 
-      console.log("Admin seeded successfully");
-      console.log(`Email: ${adminEmail}`);
-      console.log(`Password: ${adminPassword}`);
-    } else {
-      console.log("Admin already exists");
+    // Find Admin role
+    const adminRole = await Role.findOne({ name: "Admin" });
+    if (!adminRole)
+      throw new Error("Admin role not found. Please seed roles first.");
+
+    // Create UserRole link if it doesn't exist
+    const existingUserRole = await UserRole.findOne({
+      userId: adminUser._id,
+      roleId: adminRole._id,
+    });
+    if (!existingUserRole) {
+      await UserRole.create({ userId: adminUser._id, roleId: adminRole._id });
+      console.log("Admin role linked to admin user.");
     }
 
     process.exit(0);
-  } catch (error) {
-    console.error("Failed to seed admin:", error);
+  } catch (err) {
+    console.error("Failed to seed admin:", err);
     process.exit(1);
   }
 };

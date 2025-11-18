@@ -2,23 +2,26 @@ import mongoose, { Schema, Document, Types } from "mongoose";
 import bcrypt from "bcryptjs";
 
 export interface IUser extends Document {
-  _id: Types.ObjectId; // <-- ensure _id is typed
+  _id: Types.ObjectId;
   name: string;
   email: string;
   password: string;
   phone?: string;
   address?: string;
-  role: string; // single role for simplicity
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-const UserSchema: Schema<IUser> = new Schema<IUser>({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  phone: { type: String },
-  address: { type: String },
-  role: { type: String, default: "User" },
-});
+const UserSchema: Schema<IUser> = new Schema(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    phone: { type: String },
+    address: { type: String },
+  },
+  { timestamps: true }
+);
 
 // Hash password before saving
 UserSchema.pre("save", async function (next) {
