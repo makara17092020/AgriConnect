@@ -14,7 +14,6 @@ export const authorizeRoles = (...allowedRoles: string[]) => {
       return;
     }
 
-    // user.roles is an array, check intersection
     const hasRole = user.roles.some((role) => allowedRoles.includes(role));
 
     if (!hasRole) {

@@ -2,7 +2,7 @@
 export interface IJwtPayload {
   id: string;
   email: string;
-  role: string;
+  roles: string[];
   iat?: number;
   exp?: number;
 }

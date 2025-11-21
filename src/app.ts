@@ -5,6 +5,7 @@ import { swaggerSpec } from "./config/swagger";
 import authRoutes from "./routes/auth.routes"; // user auth
 import protectedRoutes from "./routes/protected.route";
 import { errorHandler } from "./middlewares/error.middleware";
+import productRoutes from "./routes/product.route";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // User routes
 app.use("/api/auth", authRoutes);
 app.use("/api/protected", protectedRoutes);
+app.use("/api/products", productRoutes);
 
 // Global error handler
 app.use(errorHandler);
