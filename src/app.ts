@@ -17,6 +17,11 @@ app.use(express.json());
 // Swagger docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+//Start server
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
 // User routes
 app.use("/api/auth", authRoutes);
 app.use("/api/protected", protectedRoutes);
