@@ -1,0 +1,1 @@
+{"version":3,"file":"farmer.model.d.ts","sourceRoot":"","sources":["../../src/models/farmer.model.ts"],"names":[],"mappings":"AACA,OAAO,QAAQ,EAAE,EAAU,QAAQ,EAAE,MAAM,UAAU,CAAC;AAEtD,MAAM,WAAW,OAAQ,SAAQ,QAAQ;IACvC,GAAG,EAAE,QAAQ,CAAC,KAAK,CAAC,QAAQ,CAAC;IAC7B,MAAM,EAAE,QAAQ,CAAC,KAAK,CAAC,QAAQ,CAAC;IAChC,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,EAAE,MAAM,CAAC;CACf;;;;;;AAaD,wBAA+D"}
