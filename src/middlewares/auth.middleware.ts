@@ -2,17 +2,20 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { IJwtPayload } from "../types/jwt.type";
+import Farmer, { IFarmer } from "../models/farmer.model";
 
+// Extend express Request
 export interface AuthenticatedRequest extends Request {
   user?: IJwtPayload;
+  farmerId?: string;
 }
 
 // -------------------- Protect Middleware --------------------
-export const protect = (
+export const protect = async (
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
-): void => {
+): Promise<void> => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -31,12 +34,23 @@ export const protect = (
       return;
     }
 
+    // Save user into req
     req.user = decoded;
+
+    // OPTIONAL: Auto-load farmerId for farmer users
+    const farmer = (await Farmer.findOne({
+      userId: decoded.id,
+    })) as IFarmer | null;
+
+    if (farmer) {
+      req.farmerId = farmer._id.toString();
+    }
+
     next();
-    return; // FIX "not all code paths return a value"
+    return; // FIXED TS7030
   } catch (err) {
     res.status(401).json({ message: "Unauthorized" });
-    return; // FIX
+    return; // FIXED TS7030
   }
 };
 

@@ -32,7 +32,7 @@ const router = express.Router();
  *                 type: string
  *               description:
  *                 type: string
- *               category:
+ *               categoryId:
  *                 type: string
  *               price:
  *                 type: number
