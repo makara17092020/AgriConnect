@@ -10,7 +10,7 @@ export class ProductService {
    * Create new product and automatically link the user → farmer → product
    */
   async createProduct(data: any, userId: string) {
-    console.log("🔍 createProduct() received userId:", userId);
+    console.log("createProduct() received userId:", userId);
 
     if (!userId) {
       throw new Error("UserId is required to create a product");
