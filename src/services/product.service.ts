@@ -2,7 +2,6 @@
 
 import { Product } from "../models/product.model";
 import { FarmerService } from "./farmer.service";
-
 const farmerService = new FarmerService();
 
 export class ProductService {
