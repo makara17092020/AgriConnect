@@ -7,6 +7,8 @@ import protectedRoutes from "./routes/protected.route";
 import { errorHandler } from "./middlewares/error.middleware";
 import productRoutes from "./routes/product.route";
 import categoryRoutes from "./routes/category.route";
+import cartRoute from "./routes/cart.route";
+import orderRoute from "./routes/order.route";
 
 const app = express();
 
@@ -26,6 +28,12 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/protected", protectedRoutes);
 app.use("/api/products", productRoutes);
+
+// Cart routes
+app.use("/api/cart", cartRoute);
+
+// Order routes
+app.use("/api/orders", orderRoute);
 
 // Category routes
 app.use("/api/categories", categoryRoutes);
